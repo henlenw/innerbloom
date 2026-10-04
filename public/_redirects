@@ -1,0 +1,11 @@
+/admin /index.html 200
+/admin/ /index.html 200
+/tools/code-generator /index.html 200
+/code-generator /index.html 200
+/tests /index.html 200
+/love /index.html 200
+/career /index.html 200
+/personality /index.html 200
+/redeem /index.html 200
+/test/* /index.html 200
+/result/* /index.html 200

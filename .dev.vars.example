@@ -1,0 +1,3 @@
+# Placeholders only. Run `node scripts/prepare-secrets.mjs` to generate local values.
+ADMIN_PASSWORD="REPLACE_WITH_A_RANDOM_PASSWORD"
+ADMIN_SESSION_SECRET="REPLACE_WITH_A_RANDOM_SESSION_SECRET"
