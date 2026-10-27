@@ -1,49 +1,98 @@
-# 心森 InnerBloom
+# InnerBloom
 
-一个以森林与成长为主题的趣味测试网站，包含恋爱、职业、性格与成长三类共 30 个测试。
+A fun quiz website inspired by forests and personal growth, featuring 30 quizzes across three categories: Love, Career, and Personality & Growth.
 
-公开网站：[innerbloom-quiz.pages.dev](https://innerbloom-quiz.pages.dev/)
+**Live Website:** [innerbloom-quiz.pages.dev](https://innerbloom-quiz.pages.dev/)
 
-## 版本状态
+## Version Status
 
-截至 2026-10-05，本仓库同时保存两个版本的脱敏源码：
+As of October 5, 2026, this repository contains sanitized source code for two versions of the project.
 
-| 位置 | 用途 | 状态 |
+| Location | Purpose | Status |
 | --- | --- | --- |
-| [`static-site/`](static-site/README.md) | 当前公开网站使用的纯静态版本，含兑换码生成器 | 已同步最新结果文案；上传副本的固定兑换码换为演示值 |
-| 仓库根目录 | 管理后台与一次性兑换码的升级版本 | 已完成本地验证，尚未部署到公开网站 |
+| [`static-site/`](static-site/README.md) | The pure static version currently used by the public website, including the redemption code generator | Updated with the latest result content. Fixed redemption codes in the uploaded copy have been replaced with demo values. |
+| Repository root | The upgraded version with an admin panel and one-time redemption codes | Locally validated but not yet deployed to the public website. |
 
-如需下载、运行或部署当前网站，请从 `static-site/` 开始。下方管理后台和 D1 说明对应根目录的升级版本；只有创建生产数据库、配置密钥并部署后，才能在线使用这些后台功能。
+To download, run, or deploy the current public website, start with `static-site/`.
 
-## 本次结果文案更新
+The admin panel and D1 instructions below apply to the upgraded version in the repository root. These backend features can only be used online after creating a production database, configuring secrets, and deploying the application.
 
-30 个测试的 120 份结果改为：一句话结论、实际答案依据、3 个具体特点、具体优势、1–2 句提醒和一句收尾。分析会说明主要倾向，并在答案混合时引用次要倾向的实际选择；五大人格单独解读互动、体谅与恢复等侧面。
+## Latest Result Content Updates
 
-结果约 273–404 字。已对照更新前的 15,360 组答题路径，确认题目、结果名称、评分和同分规则一致；现有兑换、页面布局、分享及路由保持原样。原静态版的 800 个生成码、24,000 次范围权限检查通过。
+The 120 result profiles across all 30 quizzes have been updated. Each result now includes:
 
-## 用户与运营流程
+- A one-sentence conclusion
+- Evidence based on the user's actual answers
+- Three specific characteristics
+- Concrete strengths
+- One or two sentences of guidance
+- A closing statement
 
-用户选择测试、完成答题、输入兑换码，验证成功后查看完整分析并分享图片。兑换前不展示类型、动物、关键词、分数、摘要或分析预览。
+The analysis explains the user's primary tendencies and, when answers indicate a mixture of tendencies, references actual choices associated with secondary tendencies. The Big Five personality test separately interprets aspects such as interaction, consideration for others, and recovery.
 
-管理员在 `/admin` 使用独立密码登录，可以生成单项、恋爱、职业、性格与成长或全部测试兑换码，查看使用状态、复制和导出 TXT / CSV。支持每批 1–100 个码，每个码只能成功兑换一次。部署完成后，日常生成和管理兑换码不需要修改代码。
+Each result contains approximately 273–404 Chinese characters. The updated content was checked against all 15,360 answer combinations from the previous version to confirm consistency in questions, result names, scoring, and tie-breaking rules. Existing redemption flows, page layouts, sharing features, and routing remain unchanged.
 
-兑换权限绑定当前浏览器 Cookie。刷新页面可以继续查看；更换设备、浏览器或清除浏览器数据后，不能恢复原兑换权限。答案保存在当前浏览器，生成分析时临时提交给同源服务，不写入数据库。
+The original static version also passed validation of its 800 generated codes and 24,000 range-permission checks.
 
-测试用于娱乐和自我观察，不提供心理诊断。
+## User and Admin Workflows
 
-## 技术结构
+### User Workflow
 
-- React、TypeScript、Vite、Tailwind CSS。
-- Cloudflare Pages 提供静态页面；Pages Functions 处理 `/api/*` 同源接口。
-- D1 保存兑换码、范围、时间、匿名浏览器标识和短期请求计数。
-- 完整分析在服务端确认兑换权限后返回，不打包到浏览器页面中。
-- 管理员密码与会话密钥通过环境变量提供；管理员使用 HttpOnly 会话 Cookie。
+Users select a quiz, complete the questions, enter a redemption code, and view the full analysis after successful validation. They can then share the result as an image.
 
-可以使用 Cloudflare 免费计划，但平台请求量和数据库配额有限；本项目不会自动开通付费套餐。当前额度以 [Pages Functions 官方说明](https://developers.cloudflare.com/pages/functions/pricing/)和 [D1 官方说明](https://developers.cloudflare.com/d1/platform/pricing/)为准。
+Before a code is successfully redeemed, the website does not reveal the result type, animal, keywords, score, summary, or analysis preview.
 
-## 本地启动
+### Admin Workflow
 
-准备 Node.js 22 或更新的受支持版本，以及 pnpm。
+Administrators sign in at `/admin` using a separate password.
+
+The admin panel supports generating redemption codes for:
+
+- Individual quizzes
+- Love quizzes
+- Career quizzes
+- Personality & Growth quizzes
+- All quizzes
+
+Administrators can view redemption status, copy codes, and export them as TXT or CSV files.
+
+Each batch can contain 1–100 codes, and each code can be successfully redeemed only once.
+
+After deployment, administrators can generate and manage redemption codes without modifying the source code.
+
+### Redemption Permissions and Data Handling
+
+Redemption permissions are bound to the current browser's Cookie. Users can continue viewing their results after refreshing the page. However, redemption permissions cannot be recovered after switching devices or browsers, or clearing browser data.
+
+Answers are stored in the current browser and temporarily submitted to a same-origin service when generating the analysis. They are not written to the database.
+
+These quizzes are intended for entertainment and self-reflection, not psychological diagnosis.
+
+## Technical Architecture
+
+- **Frontend:** React, TypeScript, Vite, and Tailwind CSS.
+- **Static Hosting:** Cloudflare Pages serves the static website.
+- **API:** Pages Functions handles same-origin API endpoints under `/api/*`.
+- **Database:** Cloudflare D1 stores redemption codes, access scopes, timestamps, anonymous browser identifiers, and short-term request counters.
+- **Result Delivery:** Full analyses are returned only after the server verifies redemption permissions. They are not bundled into the browser-facing pages.
+- **Admin Authentication:** The administrator password and session secret are supplied through environment variables. Administrators use an HttpOnly session Cookie.
+
+The project can use Cloudflare's free plan, subject to platform request limits and database quotas. This project does not automatically enable any paid plan.
+
+For current usage limits and pricing, refer to the official documentation:
+
+- [Cloudflare Pages Functions Pricing](https://developers.cloudflare.com/pages/functions/pricing/)
+- [Cloudflare D1 Pricing](https://developers.cloudflare.com/d1/platform/pricing/)
+
+## Local Development
+
+### Prerequisites
+
+Install Node.js 22 or a newer supported version, along with pnpm.
+
+### Install and Start
+
+Run the following commands from the repository root:
 
 ```sh
 pnpm install --frozen-lockfile
@@ -54,26 +103,41 @@ pnpm exec wrangler d1 execute innerbloom-codes --local --file migrations/0001_co
 pnpm exec wrangler pages dev dist --ip 127.0.0.1 --port 5180
 ```
 
-打开 `http://127.0.0.1:5180/`；后台地址为 `http://127.0.0.1:5180/admin`。本地管理员密码在自动生成的 `.private/cloudflare-secrets.json` 中。该目录及 `.dev.vars` 已被 Git 忽略，不要上传。
+Open the website at:
 
-`pnpm dev` 只启动前端开发服务；完整兑换与后台流程需要上述 Pages 本地服务。
+- **Website:** http://127.0.0.1:5180/
+- **Admin Panel:** http://127.0.0.1:5180/admin
 
-在另一个终端运行本地接口验收：
+The local administrator password is stored in the automatically generated `.private/cloudflare-secrets.json` file.
+
+The `.private/` directory and `.dev.vars` are excluded by Git. Do not upload them to the repository.
+
+**Important:** `pnpm dev` starts only the frontend development server. The complete redemption and admin workflows require the local Pages service started using the commands above.
+
+### Local API Verification
+
+In a separate terminal, run:
 
 ```sh
 node scripts/check-api.mjs
 ```
 
-该脚本仅允许本地地址，会创建测试兑换码并消耗其中一部分。不要用于生产数据库。
+This script only permits local addresses. It creates test redemption codes and consumes some of them during verification.
 
-## 部署到自己的 Cloudflare 账号
+**Do not run this script against a production database.**
 
-1. 使用官方 Wrangler 登录自己的 Cloudflare 账号。
-2. 创建 Pages 项目和 D1 数据库。修改 `wrangler.json` 中的项目名、数据库名及数据库 ID；现有 ID 是占位值，不关联任何真实数据库。
-3. 应用数据库迁移，并为 Pages 项目设置 `ADMIN_PASSWORD` 和 `ADMIN_SESSION_SECRET` 两个 Secret。为生产环境生成独立随机值。
-4. 构建、部署，再验证真实公开网址的兑换与管理流程。
+## Deploy to Your Own Cloudflare Account
 
-以下命令中的项目名与数据库名必须与自己的配置一致：
+1. Log in to your own Cloudflare account using the official Wrangler CLI.
+2. Create a Pages project and a D1 database. Update `wrangler.json` with your project name, database name, and database ID. The existing ID is a placeholder and is not linked to any real database.
+3. Apply the database migrations and configure the following two Secrets for the Pages project:
+   - `ADMIN_PASSWORD`
+   - `ADMIN_SESSION_SECRET`
+
+   Generate independent, secure random values for the production environment.
+4. Build and deploy the application, then verify the redemption and admin workflows on the actual public URL.
+
+The project and database names in the commands below must match your own configuration:
 
 ```sh
 pnpm exec wrangler d1 migrations apply innerbloom-codes --remote
@@ -83,30 +147,50 @@ pnpm build
 pnpm exec wrangler pages deploy dist --project-name innerbloom-quiz --branch main
 ```
 
-Secret 命令会交互式读取输入，避免将真实值写进源码或命令历史。后续更新保留现有生产密钥和数据库。
+The Secret commands prompt for values interactively, helping prevent real secrets from being written into source code or shell command history.
 
-## 源码目录
+For subsequent updates, retain your existing production secrets and database.
 
-| 路径 | 内容 |
+## Source Code Structure
+
+| Path | Description |
 | --- | --- |
-| `src/` | 页面、答题、分享、管理员界面及测试内容 |
-| `src/data/public.ts` | 浏览器可用的题目数据，不含结果画像 |
-| `src/data/analysis.ts` | 根据实际选择组织结果解释，不改变评分 |
-| `server/api.ts` | 鉴权、兑换、服务端结果和后台接口 |
-| `functions/api/[[path]].ts` | Pages Functions 入口 |
-| `migrations/` | 数据库结构迁移，不含运营记录 |
-| `public/` | 路由、安全响应头和搜索抓取配置 |
-| `scripts/` | 内容检查、本地接口验收与本地密钥初始化 |
+| `src/` | Pages, quiz logic, sharing, admin interface, and quiz content |
+| `src/data/public.ts` | Question data available to the browser; does not contain result profiles |
+| `src/data/analysis.ts` | Organizes result explanations based on actual selections without changing scoring |
+| `server/api.ts` | Authentication, redemption, server-side results, and admin APIs |
+| `functions/api/[[path]].ts` | Pages Functions entry point |
+| `migrations/` | Database schema migrations; contains no operational records |
+| `public/` | Routing, security response headers, and search crawler configuration |
+| `scripts/` | Content validation, local API verification, and local secret initialization |
 
-## 已完成的本地验证
+## Completed Local Validation
 
-- TypeScript 检查与生产构建。
-- 30 个测试、242 道题、120 份结果以及 15,360 条评分路径。
-- 72 项接口检查，包括鉴权、兑换范围、一次性并发兑换、刷新保留权限和导出。
-- 浏览器验证答题后锁定、成功兑换、后台使用状态、批量复制、CSV 下载及手机宽度布局。
+The following checks have been completed locally:
 
-微信、小红书内置浏览器及真实 iPhone / Android 设备仍需实机验证。
+- TypeScript checks and production build.
+- Validation of 30 quizzes, 242 questions, 120 result profiles, and 15,360 scoring paths.
+- 72 API checks covering authentication, redemption scopes, one-time concurrent redemption, permission persistence after refresh, and exports.
+- Browser testing of answer locking before redemption, successful redemption, admin redemption status, bulk copying, CSV downloads, and mobile-width layouts.
 
-## 脱敏范围
+In-app browsers such as WeChat and Xiaohongshu, as well as physical iPhone and Android devices, still require real-device testing.
 
-本仓库仅包含运行所需源码、依赖锁定文件、结构迁移和占位配置。未包含管理员密码、会话密钥、平台授权、个人账号信息、真实数据库 ID、兑换码记录、数据库文件、浏览器数据、本地路径、测试截图、原始文档或旧源码压缩包。静态版的固定兑换码配置已替换为演示值，发布命令使用项目名占位符；此处理只影响上传副本。安全相关占位符和本地测试用例不代表真实凭据。
+## Sanitization Scope
+
+This repository contains only the source code required to run the project, dependency lockfiles, schema migrations, and placeholder configuration.
+
+It does not contain:
+
+- Administrator passwords or session secrets
+- Platform credentials or authorization tokens
+- Personal account information
+- Real database IDs
+- Redemption code records
+- Database files or browser data
+- Local filesystem paths
+- Test screenshots
+- Original documents or archived packages of old source code
+
+The fixed redemption code configuration in the static version has been replaced with demo values. Deployment commands use placeholder project names. These changes apply only to the uploaded copy.
+
+Security-related placeholders and local test cases do not represent real credentials.
